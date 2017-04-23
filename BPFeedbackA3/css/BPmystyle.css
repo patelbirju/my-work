@@ -1,0 +1,26 @@
+/*
+  File name: myStyle.css
+  Author: Birju Patel
+  Date: 15/02/2017
+
+ */
+
+
+#CancelButton{
+    background: yellow;
+}
+
+#BPIcon{
+    text-align: center;
+}
+
+label.error{
+    color:#F00;
+    font-weight: bold;
+}
+
+input.error,
+select.error,
+textarea.error{
+    border: 1px red solid;
+}

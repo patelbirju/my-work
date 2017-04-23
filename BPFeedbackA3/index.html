@@ -1,0 +1,246 @@
+<!--
+    A mobile App prototype with jQuery and jQuery mobile
+    Programmer: Birju Patel
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BP Feedback A3</title>
+
+    <!--jQuery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+
+    <!--jQuery validation-->
+    <script src="js/lib/jquery.validate.js"></script>
+
+    <!--jQuery Mobile      -->
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+
+    <!--Javascript files-->
+    <script src="js/BPdatabase.js"></script>
+    <script src="js/BPfeedbackDAL.js"></script>
+    <script src="js/BPutil.js"></script>
+    <script src="js/BPglobal.js"></script>
+    <script src="js/BPfacade.js"></script>
+
+    <!--css stylesheet-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+    <!--My stylesheet-->
+    <link rel="stylesheet" href="css/BPmystyle.css">
+</head>
+<body>
+
+
+<!--Home Page-->
+<div id="BPHomePage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h2>BP Feedback A3</h2>
+
+        <div data-role="navbar" data-theme="a">
+            <ul>
+                <li><a href="#BPHomePage" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                <li><a href="#BPAddFeedbackPage" data-icon="plus" class="ui-btn-a">Add</a></li>
+                <li><a href="#BPViewFeedbackPage" data-icon="grid" class="ui-btn-a">Reviews</a></li>
+                <li><a href="#BPSettingsPage" data-icon="gear" class="ui-btn-a">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+
+        <h1>Birju Patel's Feedback A3 App</h1>
+
+        <p>Welcome to the Birju Patel's Feedback A1 app. A prototype designed for mobile programming class. This is the
+            first iteration of the app to keep track of different places you visisted along with your reviews.</p>
+        <br>
+        <div id="BPIcon">
+            <img src="img/BP-icon.png" alt="BP-icon" width="200" height="200" data-role="img">
+        </div>
+
+        <p>Please feel free to contact me if you have any questions</p>
+
+        <div data-role="collapsible">
+            <h3>Call: 519.722.6672</h3>
+        </div>
+        <div data-role="collapsible">
+            <h3>Bpatel0967@conestogac.on.ca</h3>
+        </div>
+        Webiste:
+        <div data-role="collapsible">
+            <h3>Conestoga College</h3>
+        </div>
+
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="b">
+        <h4>&copy; 2017 Birju Patel</h4>
+    </footer>
+</div>
+
+<!--Add Feedback Page-->
+<div id="BPAddFeedbackPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h2>Add a Feedback</h2>
+
+        <div data-role="navbar" data-theme="a">
+            <ul>
+                <li><a href="#BPHomePage" data-icon="home" class="ui-btn-a">Home</a></li>
+                <li><a href="#BPAddFeedbackPage" data-icon="plus" class="ui-btn-active ui-state-persist">Add</a></li>
+                <li><a href="#BPViewFeedbackPage" data-icon="grid" class="ui-btn-a">Reviews</a></li>
+                <li><a href="#BPSettingsPage" data-icon="gear" class="ui-btn-a">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="BPAddForm" name="BPAddForm">
+
+            <label for="BPBusinessName">Business Name:</label>
+            <input type="text" id="BPBusinessName" name="BPBusinessName">
+            <label for="BPType">Type:</label>
+            <select name="BPType" id="BPType">
+
+            </select>
+            <label for="BPEmail">Reviewer Email:</label>
+            <input type="text" id="BPEmail" name="BPEmail">
+            <label for="BPComments">Reviewer Comments:</label>
+            <textarea name="BPComments" id="BPComments" cols="30" rows="10"></textarea>
+            <label for="BPReviewDate">Review Date:</label>
+            <input type="date" id="BPReviewDate" name="BPReviewDate">
+            <input type="checkbox" id="BPAddRatings" name="BPAddRatings" checked="checked">
+            <label for="BPAddRatings">Do you want to add ratings?</label>
+
+            <div id="BPRatingsPopup">
+                <label for="BPFoodQuality">Food Quality (0-5):</label>
+                <input type="number" id="BPFoodQuality" name="BPFoodQuality" value="0">
+                <label for="BPService">Service (0-5):</label>
+                <input type="number" id="BPService" name="BPService"  value="0">
+                <label for="BPValue">Value (0-5):</label>
+                <input type="number" data-role="spinbox" id="BPValue" name="BPValue" value="0">
+                <label for="BPOverallRating">Overall Rating calculated:</label>
+                <input type="text"  id="BPOverallRating" name="BPOverallRating" disabled="disabled">
+            </div>
+
+            <button type="button" id="BPSave" name="BPSave" data-inline="true" class="ui-btn-active">Save</button>
+
+        </form>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="b">
+        <h4>&copy; 2017 Birju Patel</h4>
+    </footer>
+</div>
+
+<!--View Feedback Page-->
+<div id="BPViewFeedbackPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h2>List of Reviews</h2>
+
+        <div data-role="navbar" data-theme="a">
+            <ul>
+                <li><a href="#BPHomePage" data-icon="home" class="ui-btn-a">Home</a></li>
+                <li><a href="#BPAddFeedbackPage" data-icon="plus" class="ui-btn-a">Add</a></li>
+                <li><a href="#BPViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a>
+                </li>
+                <li><a href="#BPSettingsPage" data-icon="gear" class="ui-btn-a">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <ul data-role="listview" id="BPReviewList" data-icon="false" class="ui-listview-inset">
+
+        </ul>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="b">
+        <h4>&copy; 2017 Birju Patel</h4>
+    </footer>
+
+</div>
+
+<!--Modify Feedback Page-->
+<div id="BPEditFeedbackPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h2>Modify Feedback</h2>
+
+        <div data-role="navbar" data-theme="a">
+            <ul>
+                <li><a href="#BPHomePage" data-icon="home" class="ui-btn-a">Home</a></li>
+                <li><a href="#BPAddFeedbackPage" data-icon="plus" class="ui-btn-a">Add</a></li>
+                <li><a href="#BPViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a>
+                </li>
+                <li><a href="#BPSettingsPage" data-icon="gear" class="ui-btn-a">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="BPEditForm" name="BPEditForm" id="BPEditForm">
+
+            <label for="BPEditBusinessName">Business Name:</label>
+            <input type="text" id="BPEditBusinessName" name="BPEditBusinessName" value="Grain of Salt">
+            <label for="BPEditType">Type:</label>
+            <select name="BPEditType" id="BPEditType">
+
+            </select>
+            <label for="BPEditEmail">Reviewer Email:</label>
+            <input type="text" id="BPEditEmail" name="BPEditEmail" value="birjupatel95@hotmail.com">
+            <label for="BPEditComments">Reviewer Comments:</label>
+            <textarea name="BPEditComments" id="BPEditComments" cols="30" rows="10">Tasty food!</textarea>
+
+            <label for="BPEditReviewDate">Review Date:</label>
+            <input type="date" id="BPEditReviewDate" name="BPEditReviewDate">
+            <input type="checkbox" id="BPEditAddRatings" name="BPEditAddRatings" checked="">
+            <label for="BPEditAddRatings">Do you want to add ratings?</label>
+
+            <div id="BPEditRatingsPopup">
+                <label for="BPEditFoodQuality">Food Quality (0-5):</label>
+                <input type="text" id="BPEditFoodQuality" name="BPEditFoodQuality" value="0">
+                <label for="BPEditService">Service (0-5):</label>
+                <input type="text" id="BPEditService" name="BPEditService" value="0">
+                <label for="BPEditValue">Value (0-5):</label>
+                <input type="text" data-role="spinbox" id="BPEditValue" name="BPEditValue" value="0">
+
+                <label for="BPEditRating">Overall Rating(calculated):</label>
+                <input type="text" id="BPEditRating" name="BPEditRating" value="0" disabled="disabled">
+            </div>
+
+
+            <div data-role="controlgroup" data-type="horizontal">
+                <a href="#BPViewFeedbackPage" data-role="button" data-inline="true" id="CancelButton">Cancel</a>
+                <a href="#" data-role="button" data-inline="true" id="BPDelete" data-theme="b">Delete</a>
+                <a href="#" data-role="button" data-inline="true" id="BPUpdate" name="BPUpdate" class="ui-btn-active">Update</a>
+            </div>
+        </form>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="b">
+        <h4>&copy; 2017 Birju Patel</h4>
+    </footer>
+</div>
+
+<!--Settings Page-->
+<div id="BPSettingsPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h2>Settings</h2>
+
+        <div data-role="navbar" data-theme="a">
+            <ul>
+                <li><a href="#BPHomePage" data-icon="home" class="ui-btn-a">Home</a></li>
+                <li><a href="#BPAddFeedbackPage" data-icon="plus" class="ui-btn-a">Add</a></li>
+                <li><a href="#BPViewFeedbackPage" data-icon="grid" class="ui-btn-a">Reviews</a></li>
+                <li><a href="#BPSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <label for="BPDefaultEmail">Default reviewer Email:</label>
+        <input type="text" id="BPDefaultEmail" name="BPDefaultEmail">
+
+        <div>
+            <button type="button" id="BPSaveDefaults" name="BPSaveDefaults" data-theme="b">Save Defaults</button>
+            <button type="button" id="BPClearDatabase" name="BPClearDatabase" data-theme="b">Clear Database</button>
+        </div>
+
+    </section>
+    <footer data-role="footer" data-position="fixed" data-theme="b">
+        <h4>&copy; 2017 Birju Patel</h4>
+    </footer>
+</div>
+
+</body>
+</html>
